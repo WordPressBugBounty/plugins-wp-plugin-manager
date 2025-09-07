@@ -221,7 +221,7 @@ function htpm_update_dashboard_settings($request) {
         if ($update_result === false && $options !== get_option('htpm_options')) {
             return new WP_REST_Response([
                 'success' => false,
-                'message' => 'Failed to update settings in database'
+                'message' => esc_html__('Failed to update settings in database', 'wp-plugin-manager')
             ], 500);
         }
         
@@ -233,7 +233,7 @@ function htpm_update_dashboard_settings($request) {
     } catch (Throwable $e) {
         return new WP_REST_Response([
             'success' => false,
-            'message' => 'An error occurred while updating settings'
+            'message' => esc_html__( 'An error occurred while updating settings', 'wp-plugin-manager' )
         ], 500);
     }
 }
@@ -327,7 +327,7 @@ function htpm_get_plugin_settings($request) {
     }
     
     if (!$plugin_path) {
-        return new WP_Error('plugin_not_found', 'Plugin not found', ['status' => 404]);
+        return new WP_Error('plugin_not_found', esc_html__( 'Plugin not found', 'wp-plugin-manager' ), ['status' => 404]);
     }
     
     // Get stored settings for this plugin
@@ -413,7 +413,7 @@ function htpm_update_plugin_settings($request) {
     }
     
     if (!$plugin_path) {
-        return new WP_Error('plugin_not_found', 'Plugin not found', ['status' => 404]);
+        return new WP_Error('plugin_not_found', esc_html__( 'Plugin not found', 'wp-plugin-manager' ), ['status' => 404]);
     }
     
     // Update the settings
@@ -611,7 +611,7 @@ function htpm_get_post_type_items($request) {
     $type = $request->get_param('type');
     
     if (!post_type_exists($type)) {
-        return new WP_Error('invalid_post_type', 'Invalid post type', ['status' => 400]);
+        return new WP_Error('invalid_post_type', esc_html__( 'Invalid post type', 'wp-plugin-manager' ), ['status' => 400]);
     }
     
     $items = get_posts([

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Plugin Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-24 08:34+0000\n"
+"POT-Creation-Date: 2025-09-07 06:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -122,6 +122,10 @@ msgstr ""
 
 #: includes/api/admin-settings.php:191
 msgid "All Posts"
+msgstr ""
+
+#: includes/api/admin-dashboard-api.php:236
+msgid "An error occurred while updating settings"
 msgstr ""
 
 #: includes/templates/sidebar-banner.php:23
@@ -269,10 +273,6 @@ msgstr ""
 msgid "Desktop + Tablet"
 msgstr ""
 
-#: includes/api/admin-settings.php:86 includes/api/admin-settings.php:291
-msgid "Disable"
-msgstr ""
-
 #: includes/api/admin-settings.php:94 includes/api/admin-settings.php:313
 msgid "Disable on Selected Pages"
 msgstr ""
@@ -285,6 +285,10 @@ msgstr ""
 
 #: includes/api/admin-settings.php:295
 msgid "Disable Plugin on: "
+msgstr ""
+
+#: includes/api/admin-settings.php:86 includes/api/admin-settings.php:291
+msgid "Disabled"
 msgstr ""
 
 #: includes/class.notices.php:273
@@ -321,10 +325,6 @@ msgstr ""
 msgid "Edit Single Post"
 msgstr ""
 
-#: includes/api/admin-settings.php:85 includes/api/admin-settings.php:290
-msgid "Enable"
-msgstr ""
-
 #: includes/api/admin-settings.php:439
 msgid "Enable Anyway"
 msgstr ""
@@ -354,12 +354,20 @@ msgid ""
 "enabling, you need to refresh the page to see the changes.)"
 msgstr ""
 
+#: includes/api/admin-settings.php:85 includes/api/admin-settings.php:290
+msgid "Enabled"
+msgstr ""
+
 #: includes/api/admin-settings.php:434
 msgid "Error Fetching Plugins. Please try again"
 msgstr ""
 
 #: includes/api/admin-settings.php:546
 msgid "Extensions For CF7"
+msgstr ""
+
+#: includes/api/admin-dashboard-api.php:224
+msgid "Failed to update settings in database"
 msgstr ""
 
 #: includes/api/admin-settings.php:383
@@ -494,6 +502,10 @@ msgstr ""
 
 #: plugin-main.php:195
 msgid "Installing.."
+msgstr ""
+
+#: includes/api/admin-dashboard-api.php:614
+msgid "Invalid post type"
 msgstr ""
 
 #: includes/api/admin-settings.php:417
@@ -631,12 +643,34 @@ msgstr ""
 msgid "Pixelavo – Facebook Pixel Conversion API"
 msgstr ""
 
+#: includes/api/recommended-plugins-api.php:251
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: includes/api/recommended-plugins-api.php:217
+msgid "Plugin installed successfully."
+msgstr ""
+
 #: includes/plugin-options-page.php:36 includes/plugin-options-page.php:37
 msgid "Plugin Manager"
 msgstr ""
 
 #: plugin-main.php:257
 msgid "Plugin Not Found"
+msgstr ""
+
+#: includes/api/admin-dashboard-api.php:330
+#: includes/api/admin-dashboard-api.php:416
+msgid "Plugin not found"
+msgstr ""
+
+#: includes/api/recommended-plugins-api.php:240
+msgid "Plugin not found."
+msgstr ""
+
+#: includes/api/recommended-plugins-api.php:192
+#: includes/api/recommended-plugins-api.php:232
+msgid "Plugin slug is required."
 msgstr ""
 
 #: plugin-main.php:277
@@ -778,6 +812,14 @@ msgstr ""
 
 #: includes/api/admin-dashboard-api.php:649
 msgid "Sidebar template file not found."
+msgstr ""
+
+#: includes/api/recommended-plugins-api.php:226
+msgid "Sorry, you are not allowed to activate plugins."
+msgstr ""
+
+#: includes/api/recommended-plugins-api.php:187
+msgid "Sorry, you are not allowed to install plugins."
 msgstr ""
 
 #: includes/api/admin-settings.php:80 includes/api/admin-settings.php:285

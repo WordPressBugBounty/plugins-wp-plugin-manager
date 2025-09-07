@@ -162,7 +162,7 @@ class Plugins extends \WP_REST_Controller {
     public function get_plugins_status($request) {
         $nonce = $request->get_param('nonce');
         if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-            return new \WP_Error('rest_forbidden', __('Sorry, you are not allowed to activate plugins.dsds:'.$nonce), ['status' => 403]);
+            return new \WP_Error('rest_forbidden', __('Sorry, you are not allowed to activate plugins:'.$nonce), ['status' => 403]);
         }
 
         $plugin_slugs = explode(',', $request->get_param('plugins'));
@@ -184,12 +184,12 @@ class Plugins extends \WP_REST_Controller {
 
     public function install_plugin($request) {
         if (!current_user_can('install_plugins')) {
-            return new \WP_Error('rest_forbidden', __('Sorry, you are not allowed to install plugins.'), ['status' => 403]);
+            return new \WP_Error('rest_forbidden', __('Sorry, you are not allowed to install plugins.', 'wp-plugin-manager'), ['status' => 403]);
         }
 
         $slug = $request->get_param('slug');
         if (empty($slug)) {
-            return new \WP_Error('missing_slug', __('Plugin slug is required.'));
+            return new \WP_Error('missing_slug', __('Plugin slug is required.', 'wp-plugin-manager'));
         }
 
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -214,7 +214,7 @@ class Plugins extends \WP_REST_Controller {
 
         return [
             'success' => true,
-            'message' => __('Plugin installed successfully.')
+            'message' => __('Plugin installed successfully.', 'wp-plugin-manager')
         ];
     }
 
@@ -223,13 +223,13 @@ class Plugins extends \WP_REST_Controller {
         // Nonce check is handled by WordPress REST API
 
         if (!current_user_can('activate_plugins')) {
-            return new \WP_Error('rest_forbidden', __('Sorry, you are not allowed to activate plugins.'), ['status' => 403]);
+            return new \WP_Error('rest_forbidden', __('Sorry, you are not allowed to activate plugins.', 'wp-plugin-manager'), ['status' => 403]);
         }
 
         $slug = $request->get_param('slug');
         
         if (empty($slug)) {
-            return new \WP_Error('missing_slug', __('Plugin slug is required.'));
+            return new \WP_Error('missing_slug', __('Plugin slug is required.', 'wp-plugin-manager'));
         }
 
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -237,7 +237,7 @@ class Plugins extends \WP_REST_Controller {
         $plugin_file = $this->get_plugin_file_from_slug($slug);
         
         if (!$plugin_file) {
-            return new \WP_Error('plugin_not_found', __('Plugin not found.'));
+            return new \WP_Error('plugin_not_found', __('Plugin not found.', 'wp-plugin-manager'));
         }
 
         $result = activate_plugin($plugin_file);
@@ -248,7 +248,7 @@ class Plugins extends \WP_REST_Controller {
 
         return [
             'success' => true,
-            'message' => __('Plugin activated successfully.')
+            'message' => __('Plugin activated successfully.', 'wp-plugin-manager')
         ];
     }
 

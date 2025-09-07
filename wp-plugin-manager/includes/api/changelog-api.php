@@ -182,6 +182,19 @@ class ChangeLog extends WP_REST_Controller {
     private function get_changelog_data() {
         return [
             [
+                'version' => '1.4.6',
+                'date'    => '2025-09-07',
+                'changes' => [
+                    'Updated' => [
+                        'Language translation .pot file.',
+                    ],
+                    'Fixed' => [
+                        'API request status content translation issues.',
+                        'A few minor issues.',
+                    ],
+                ],
+            ],
+            [
                 'version' => '1.4.5',
                 'date'    => '2025-08-24',
                 'changes' => [
