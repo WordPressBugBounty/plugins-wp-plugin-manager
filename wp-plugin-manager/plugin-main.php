@@ -3,7 +3,7 @@
 * Plugin Name: WP Plugin Manager
 * Plugin URI: https://hasthemes.com/plugins/
 * Description: WP Plugin Manager is a WordPress plugin that allows you to disable plugins for certain pages, posts or URI conditions.
-* Version: 1.4.6
+* Version: 1.4.10
 * Author: HasThemes
 * Author URI: https://hasthemes.com/
 * Text Domain: wp-plugin-manager
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * Define path
  */
-define( 'HTPM_PLUGIN_VERSION', '1.4.6' );
+define( 'HTPM_PLUGIN_VERSION', '1.4.10' );
 define( 'HTPM_ROOT_PL', __FILE__ );
 define( 'HTPM_ROOT_URL', plugins_url('', HTPM_ROOT_PL) );
 define( 'HTPM_ROOT_DIR', dirname( HTPM_ROOT_PL ) );
@@ -57,7 +57,6 @@ class HTPM_Main {
     
         add_action( 'admin_enqueue_scripts', [$this, 'admin_scripts'] );
         add_filter('admin_menu', [$this, 'pro_submenu'], 101 );
-        add_action( 'wp_ajax_htpm_ajax_plugin_activation', [$this, 'ajax_plugin_activation']);
         add_action('init', [$this, 'create_mu_file']);
         add_action('admin_init', [$this, 'show_admin_diagnostic_data_notice'] );
         add_action('admin_init', [$this, 'show_admin_rating_notice'] );
@@ -138,7 +137,7 @@ class HTPM_Main {
         if(is_admin()){
             include_once( HTPM_ROOT_DIR . '/includes/class-diagnostic-data.php');
             include_once( HTPM_ROOT_DIR . '/includes/class.notices.php');
-            include_once( HTPM_ROOT_DIR . '/includes/HTPM_Trial.php');
+           // include_once( HTPM_ROOT_DIR . '/includes/HTPM_Trial.php');
         }
         include_once( HTPM_ROOT_DIR . '/includes/api/admin-dashboard-api.php');
         include_once( HTPM_ROOT_DIR . '/includes/api/changelog-api.php');
@@ -209,7 +208,7 @@ class HTPM_Main {
                         'videoTutorial' => esc_html__('Video Tutorial', 'wp-plugin-manager'),
                         'support' => esc_html__('Support', 'wp-plugin-manager'),
                         'docLink' => 'https://hasthemes.com/docs/wp-plugin-manager/',
-                        'videoLink' => 'https://www.youtube.com/watch?v=u94hkbTzKFU',
+                        'videoLink' => 'https://www.youtube.com/watch?v=vrWVOEQjQe8',
                         'supportLink' => 'https://hasthemes.com/contact-us/',
                         'upgradeLink' => 'https://hasthemes.com/plugins/wp-plugin-manager-pro/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free#pricing',
                         'licenseLink' => 'https://hasthemes.com/plugins/wp-plugin-manager-pro/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free#pricing',
@@ -244,41 +243,6 @@ class HTPM_Main {
 		);
     }
     
-
-    /**
-     * Ajax plugins activation request
-     */
-    function ajax_plugin_activation() {
-
-        if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['location'] ) || ! sanitize_text_field(wp_unslash($_POST['location'])) ) { //phpcs:ignore WordPress.Security.NonceVerification.Missing
-            wp_send_json_error(
-                array(
-                    'success' => false,
-                    'message' => esc_html__( 'Plugin Not Found', 'wp-plugin-manager' ),
-                )
-            );
-        }
-
-        $plugin_location = ( isset( $_POST['location'] ) ) ? esc_attr( sanitize_text_field(wp_unslash($_POST['location'])) ) : ''; //phpcs:ignore WordPress.Security.NonceVerification.Missing
-        $activate    = activate_plugin( $plugin_location, '', false, true );
-
-        if ( is_wp_error( $activate ) ) {
-            wp_send_json_error(
-                array(
-                    'success' => false,
-                    'message' => $activate->get_error_message(),
-                )
-            );
-        }
-
-        wp_send_json_success(
-            array(
-                'success' => true,
-                'message' => esc_html__( 'Plugin Successfully Activated', 'wp-plugin-manager' ),
-            )
-        );
-
-    }
 
     /**
      * Add mu file
@@ -362,6 +326,8 @@ class HTPM_Main {
             ]
         );
     }
+
+
 
     function show_admin_promo_notice() {
         require HTPM_ROOT_DIR . '/includes/notice-manager.php';

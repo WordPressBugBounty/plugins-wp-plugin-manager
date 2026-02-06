@@ -5,6 +5,7 @@ class HTPM_Notice_Manager{
 
     // Remote URL
     const REST_ROUTE_URL = 'https://feed.hasthemes.com/notices/';
+    //const REST_ROUTE_URL = HTPM_ROOT_URL;
 
     // Transient Key
     const TRANSIENT_KEYS = [

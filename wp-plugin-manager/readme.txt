@@ -2,9 +2,9 @@
 Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasib, madhusudandev
 Tags: plugin manager, disable plugins, performance optimization, selective loading, wordpress speed
 Requires at least: 5.0
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.4.6
+Stable tag: 1.4.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,7 +59,7 @@ Every active plugin on your WordPress site loads its CSS and JavaScript files on
 * No coding required
 * Lightweight and fast
 
-= [youtube https://youtu.be/u94hkbTzKFU] =
+= [youtube https://youtu.be/vrWVOEQjQe8] =
 
 **💎 Pro Features - [Unlock All Features](https://hasthemes.com/plugins/wp-plugin-manager-pro/)**
 
@@ -167,6 +167,19 @@ Yes! Device-specific targeting is available in the Pro version, allowing differe
 Results vary based on your site, but users typically see 30-90% improvement in page load times.
 
 == Changelog ==
+= Version: 1.4.10 Date: 01 January 2026 =
+* Fixed: A few minor issues.
+* Tested: Compatibility with the latest version of WordPress.
+
+= Version: 1.4.9 Date: 13 November 2025 =
+* Fixed: Admin notice display issue. 
+
+= Version: 1.4.8 Date: 11 November 2025 =
+* Improved: Code cleanup - removed unused legacy code from migration to REST API.
+
+= Version: 1.4.7 Date: 23 October 2025 =
+* Improved: Minor UI update and optimizations.
+
 = Version: 1.4.6 Date: 07 September 2025 =
 * Updated: Language translation .pot file.
 * Fixed: API request status content translation issues.

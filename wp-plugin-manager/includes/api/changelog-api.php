@@ -182,6 +182,15 @@ class ChangeLog extends WP_REST_Controller {
     private function get_changelog_data() {
         return [
             [
+                'version' => '1.4.7',
+                'date'    => '2025-10-23',
+                'changes' => [
+                    'Improved' => [
+                        'Minor UI update and optimizations.',
+                    ],
+                ],
+            ],
+            [
                 'version' => '1.4.6',
                 'date'    => '2025-09-07',
                 'changes' => [
