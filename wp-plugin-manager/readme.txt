@@ -4,7 +4,7 @@ Tags: plugin manager, disable plugins, performance optimization, selective loadi
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.4.11
+Stable tag: 1.4.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -167,6 +167,12 @@ Yes! Device-specific targeting is available in the Pro version, allowing differe
 Results vary based on your site, but users typically see 30-90% improvement in page load times.
 
 == Changelog ==
+= Version: 1.4.12 Date: 25 March 2026 =
+* Fixed: Plugin incorrectly disabled on child pages when parent page was selected.
+* Fixed: "All Pages" now applies to homepage and child pages.
+* Fixed: "All Posts" incorrectly firing on homepage.
+* Fixed: Individual post URL matching not working.
+
 = Version: 1.4.11 Date: 26 February 2026 =
 * Improved: Admin notice display.
 

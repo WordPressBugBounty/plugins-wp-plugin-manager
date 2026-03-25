@@ -182,6 +182,18 @@ class ChangeLog extends WP_REST_Controller {
     private function get_changelog_data() {
         return [
             [
+                'version' => '1.4.12',
+                'date'    => '2026-03-25',
+                'changes' => [
+                    'Fixed' => [
+                        'Plugin incorrectly disabled on child pages when parent page was selected.',
+                        '"All Pages" now applies to homepage and child pages.',
+                        '"All Posts" incorrectly firing on homepage.',
+                        'Individual post URL matching not working.',
+                    ],
+                ],
+            ],
+            [
                 'version' => '1.4.7',
                 'date'    => '2025-10-23',
                 'changes' => [

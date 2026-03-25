@@ -62,6 +62,7 @@ function htpm_filter_plugins( $plugins ){
 
 	$current_page_url = $server_host . $req_uri;
 	$current_page_url = trim( $current_page_url, "/" );
+	$current_page_url_no_qs = trim( explode('?', $current_page_url)[0], '/' );
 	$current_page_slug = trim(str_replace($main_domain, '', $current_page_url), '/');
 
 	$page_path = $current_page_slug;
@@ -69,6 +70,8 @@ function htpm_filter_plugins( $plugins ){
 		$page_path = '/';
 	}
 	$page_path = explode('?', $page_path)[0];
+
+	$is_front_page = ( $page_path === '/' );
 
 	// loop through each active plugin
 	foreach($htpm_options as $plugin => $individual_options){
@@ -83,8 +86,8 @@ function htpm_filter_plugins( $plugins ){
 
 			if($uri_type == 'page'){
 				$page_list = isset($individual_options['pages']) ? $individual_options['pages'] : array();
-				$current_page = get_page_by_path( basename($page_path),'OBJECT',get_option('htpm_available_post_types') );
-				if(in_array('all_pages,all_pages', $page_list) && !empty($current_page) && $current_page->post_type == 'page'){
+				$current_page = ( $page_path !== '/' ) ? get_page_by_path( trim($page_path, '/'), 'OBJECT', 'page' ) : null;
+				if(in_array('all_pages,all_pages', $page_list) && ( $is_front_page || (!empty($current_page) && $current_page->post_status === 'publish') )){
 					$remove_plugins[] = $plugin;
 				} else {
 					foreach($page_list as $page_info){
@@ -94,11 +97,8 @@ function htpm_filter_plugins( $plugins ){
 
 						$page_link = str_replace(array('http://','https://'), '', $page_link);
 						$page_link = trim( $page_link, '/' );
-						$slug = '';
-						$slug = get_post_field( 'post_name', $page_id );
 						if(
-							$slug && in_array( $slug, explode('/', $current_page_url ) ) ||
-							$page_link && $page_link == $current_page_url
+							$page_link && $page_link == $current_page_url_no_qs
 						){
 							$remove_plugins[] = $plugin;
 						}
@@ -108,8 +108,8 @@ function htpm_filter_plugins( $plugins ){
 
 			if($uri_type == 'post'){
 				$post_list = isset($individual_options['posts']) ? $individual_options['posts'] : array();
-				$current_page = get_page_by_path( basename($page_path),'OBJECT',get_option('htpm_available_post_types') );
-				if(in_array('all_posts,all_posts', $post_list) && !empty($current_page) && $current_page->post_type == 'post'){
+				$current_page = get_page_by_path( basename($page_path), 'OBJECT', 'post' );
+				if(in_array('all_posts,all_posts', $post_list) && !empty($current_page) && $current_page->post_status === 'publish'){
 					$remove_plugins[] = $plugin;
 				} else {
 					foreach($post_list as $post_info){
@@ -117,12 +117,9 @@ function htpm_filter_plugins( $plugins ){
 						$post_id = $post_info_arr[0];
 						$post_link = $post_info_arr[1];
 						$post_link = str_replace(array('http://','https://'), '', $post_link);
-						$slug = '';
-						$slug = get_post_field( 'post_name', $post_id );
-
+						$post_link = trim( $post_link, '/' );
 						if(
-							$slug && in_array($slug, explode('/', $current_page_url)) ||
-							$post_link && $post_link == $current_page_url
+							$post_link && $post_link == $current_page_url_no_qs
 						){
 							$remove_plugins[] = $plugin;
 						}
@@ -134,10 +131,11 @@ function htpm_filter_plugins( $plugins ){
 				$page_list = isset($individual_options['pages']) ? $individual_options['pages'] : array();
 				$post_list = isset($individual_options['posts']) ? $individual_options['posts'] : array();
 				$page_nd_post_list = array_merge($page_list, $post_list );
-				$current_page = get_page_by_path( basename($page_path),'OBJECT',get_option('htpm_available_post_types') );
-				if(in_array('all_pages,all_pages', $page_nd_post_list) && !empty($current_page) && $current_page->post_type == 'page'){
+				$current_page = ( $page_path !== '/' ) ? get_page_by_path( trim($page_path, '/'), 'OBJECT', 'page' ) : null;
+				$current_post = get_page_by_path( basename($page_path), 'OBJECT', 'post' );
+				if(in_array('all_pages,all_pages', $page_nd_post_list) && ( $is_front_page || (!empty($current_page) && $current_page->post_status === 'publish') )){
 					$remove_plugins[] = $plugin;
-				} elseif(in_array('all_posts,all_posts', $page_nd_post_list) && !empty($current_page) && $current_page->post_type == 'post'){
+				} elseif(in_array('all_posts,all_posts', $page_nd_post_list) && !empty($current_post) && $current_post->post_status === 'publish'){
 					$remove_plugins[] = $plugin;
 				} else {
 					foreach($page_nd_post_list as $post_info){
@@ -147,12 +145,8 @@ function htpm_filter_plugins( $plugins ){
 
 						$post_link = str_replace(array('http://','https://'), '', $post_link);
 						$post_link = trim( $post_link, '/' );
-						$slug = '';
-						$slug = get_post_field( 'post_name', $post_id );
-
 						if(
-							$slug && in_array($slug, explode('/', $current_page_url)) ||
-							$post_link && $post_link == $current_page_url
+							$post_link && $post_link == $current_page_url_no_qs
 						){
 							$remove_plugins[] = $plugin;
 						}
