@@ -182,6 +182,18 @@ class ChangeLog extends WP_REST_Controller {
     private function get_changelog_data() {
         return [
             [
+                'version' => '1.4.13',
+                'date'    => '2026-06-17',
+                'changes' => [
+                    'Fixed' => [
+                        'Post type select dropdown in Settings page now hides already-selected items from the list.',
+                    ],
+                    'Tested' => [
+                        'Compatibility with the latest version of WordPress.',
+                    ],
+                ],
+            ],
+            [
                 'version' => '1.4.12',
                 'date'    => '2026-03-25',
                 'changes' => [
