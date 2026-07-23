@@ -1,11 +1,5 @@
 <?php
 
-/*
- * Return Elementor Version
- */
-/*function htpm_is_elementor_version( $operator = '<', $version = '2.6.0' ) {
-    return defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, $version, $operator );
-}*/
 
 /**
 * Check Plugin is Installed or not

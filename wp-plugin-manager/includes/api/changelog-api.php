@@ -182,6 +182,18 @@ class ChangeLog extends WP_REST_Controller {
     private function get_changelog_data() {
         return [
             [
+                'version' => '1.4.14',
+                'date'    => '2026-07-23',
+                'changes' => [
+                    'Fixed' => [
+                        'A few minor issues.',
+                    ],
+                    'Tested' => [
+                        'Compatibility with the latest version of WordPress.',
+                    ],
+                ],
+            ],
+            [
                 'version' => '1.4.13',
                 'date'    => '2026-06-17',
                 'changes' => [
