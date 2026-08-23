@@ -550,6 +550,24 @@ class WP_Plugin_Manager_Settings {
                     'icon'       => null,
                     'recommend' => is_plugin_active('contact-form-7/wp-contact-form-7.php') ? true : false,
                 ),
+                array(
+                    'slug'        => 'cookieray',
+                    'location'    => 'cookieray.php',
+                    'name'        => esc_html__( 'CookieRay – Cookie Banner for Cookie Consent (GDPR/CCPA Compliant)', 'wp-plugin-manager' ),
+                    'description' => esc_html__( 'Cookie banner plugin for GDPR/CCPA compliant cookie consent management.', 'wp-plugin-manager' ),
+                    'status'     => 'inactive',
+                    'isLoading'  => false,
+                    'icon'       => null
+                ),
+                array(
+                    'slug'        => 'kelune-crm',
+                    'location'    => 'kelune-crm.php',
+                    'name'        => esc_html__( 'Kelune CRM – Contact Management, Email Marketing, Newsletter & Marketing Automation', 'wp-plugin-manager' ),
+                    'description' => esc_html__( 'Contact management, email marketing, newsletter & marketing automation CRM.', 'wp-plugin-manager' ),
+                    'status'     => 'inactive',
+                    'isLoading'  => false,
+                    'icon'       => null
+                ),
             )
         );
     
@@ -585,17 +603,18 @@ class WP_Plugin_Manager_Settings {
                     'icon'       => null
                 ),
                 array(
-                    'slug'        => 'just-tables',
-                    'location'    => 'just-tables.php',
-                    'name'        => esc_html__( 'JustTables – WooCommerce Product Table', 'wp-plugin-manager' ),
-                    'description' => esc_html__( 'JustTables is an incredible WordPress plugin that lets you showcase all your WooCommerce products in a sortable and filterable table view. It allows your customers to easily navigate through different attributes of the products and compare them on a single page...', 'wp-plugin-manager' ),
+                    'slug'        => 'recurio',
+                    'location'    => 'recurio.php',
+                    'name'        => esc_html__( 'Recurio – Ultimate Subscription for WooCommerce', 'wp-plugin-manager' ),
+                    'description' => esc_html__( 'Ultimate subscription plugin for WooCommerce recurring payments and memberships.', 'wp-plugin-manager' ),
                     'status'     => 'inactive',
                     'isLoading'  => false,
-                    'icon'       => null
+                    'icon'       => null,
+                    'recommend' => is_plugin_active('woocommerce/woocommerce.php') ? true : false,
                 ),
             ]
         ];
-    
+
         // Others Tab
         $recommendations_plugins[] = [
             'title' => esc_html__( 'Others', 'wp-plugin-manager' ),
@@ -646,13 +665,13 @@ class WP_Plugin_Manager_Settings {
                     'icon'       => null
                 ),
                 array(
-                    'slug' => 'ht-google-place-review',
-                    'location' => 'ht-google-place-review.php',
-                    'name' => esc_html__('Google Place Review', 'wp-plugin-manager'),
-                    'link' => 'https://hasthemes.com/plugins/google-place-review-plugin-for-wordpress/',
-                    'author_link' => 'https://hasthemes.com/',
-                    'description' => esc_html__('Display Google Reviews on your site.', 'wp-plugin-manager'),
-                    'pro' => true
+                    'slug'        => 'courseglade-lms',
+                    'location'    => 'courseglade-lms.php',
+                    'name'        => esc_html__( 'CourseGlade LMS – Online Course & eLearning Platform', 'wp-plugin-manager' ),
+                    'description' => esc_html__( 'Complete online course & eLearning platform for WordPress.', 'wp-plugin-manager' ),
+                    'status'     => 'inactive',
+                    'isLoading'  => false,
+                    'icon'       => null
                 ),
             ]
         ];

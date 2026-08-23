@@ -2,9 +2,9 @@
 Contributors: hasthemes, htplugins, devitemsllc, zenaulislam, aslamhasib, madhusudandev
 Tags: plugin manager, disable plugins, performance optimization, selective loading, wordpress speed
 Requires at least: 5.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.14
+Stable tag: 1.4.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -167,6 +167,10 @@ Yes! Device-specific targeting is available in the Pro version, allowing differe
 Results vary based on your site, but users typically see 30-90% improvement in page load times.
 
 == Changelog ==
+= Version: 1.4.15 Date: 23 August 2026 =
+* Fixed: A few minor issues.
+* Tested: Compatibility with the latest version of WordPress.
+
 = Version: 1.4.14 Date: 23 July 2026 =
 * Fixed: A few minor issues.
 * Tested: Compatibility with the latest version of WordPress.
