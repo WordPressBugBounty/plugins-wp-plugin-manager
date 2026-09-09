@@ -182,6 +182,23 @@ class ChangeLog extends WP_REST_Controller {
     private function get_changelog_data() {
         return [
             [
+                'version' => '1.4.16',
+                'date'    => '2026-09-09',
+                'changes' => [
+                    'Added' => [
+                        'Multisite support — configure plugin rules once at Network Admin level and apply them across every site, with the option to override on individual sites.',
+                    ],
+                    'Fixed' => [
+                        'Plugins activated at the network level not appearing correctly in the plugin list.',
+                        '"Optimize Now" quick action not disabling the plugin on the frontend by default.',
+                        'Selected page/post targeting not matching correctly across different site domains.',
+                    ],
+                    'Tested' => [
+                        'Compatibility with the latest version of WordPress.',
+                    ],
+                ],
+            ],
+            [
                 'version' => '1.4.15',
                 'date'    => '2026-08-23',
                 'changes' => [

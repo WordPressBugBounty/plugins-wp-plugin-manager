@@ -22,6 +22,7 @@ class HTPM_Option_Page {
      */
     private function __construct() {
 		add_action( 'admin_menu',  [ $this,'admin_menu'] );
+		add_action( 'network_admin_menu',  [ $this,'network_admin_menu'] );
 		add_action( 'admin_footer', [$this, 'pro_menu_scripts'], 11 );
 		add_action( 'admin_footer', [$this, 'pro_notice_content'] );
     }
@@ -30,12 +31,31 @@ class HTPM_Option_Page {
 	 * @return void
 	 */
 	public function admin_menu () {
+		$this->register_menu( 'manage_options' );
+	}
+
+	/**
+	 * Adds Network Admin menu for WP Plugin Manager, so a super admin can
+	 * configure rules once and have them apply to every subsite.
+	 * @return void
+	 */
+	public function network_admin_menu () {
+		$this->register_menu( 'manage_network_options' );
+	}
+
+	/**
+	 * Registers the plugin's admin menu + submenus for a given capability.
+	 * Shared by both the per-site and the network admin menu.
+	 * @param string $capability
+	 * @return void
+	 */
+	private function register_menu ( $capability ) {
 		global $submenu;
-		
+
 		add_menu_page(
 			esc_html__( 'Plugin Manager', 'wp-plugin-manager' ),
 			esc_html__( 'Plugin Manager', 'wp-plugin-manager' ),
-			'manage_options',
+			$capability,
 			'htpm-options',
 			[$this, 'page_render'],
 			HTPM_ROOT_URL.'/assets/images/icon/dashboard-menu-logo.png',
@@ -46,7 +66,7 @@ class HTPM_Option_Page {
 		// Modify the default menu item to point to the general settings
 		$submenu['htpm-options'][0] = array(
 			esc_html__('General', 'wp-plugin-manager'),
-			'manage_options',
+			$capability,
 			'admin.php?page=htpm-options#/'
 		);
 
@@ -55,7 +75,7 @@ class HTPM_Option_Page {
 			'htpm-options',
 			esc_html__( 'Settings', 'wp-plugin-manager' ),
 			esc_html__( 'Settings', 'wp-plugin-manager' ),
-			'manage_options',
+			$capability,
 			'admin.php?page=htpm-options#/settings'
 		);
 
@@ -64,13 +84,9 @@ class HTPM_Option_Page {
 			'htpm-options',
 			esc_html__( 'Recommended', 'wp-plugin-manager' ),
 			esc_html__( 'Recommended', 'wp-plugin-manager' ),
-			'manage_options',
+			$capability,
 			'admin.php?page=htpm-options#/recommended'
 		);
-
-		if( is_multisite() ){
-			unset($submenu['htpm-options'][0]);
-		}
 	}
 
 	public function pro_menu_scripts() {
@@ -110,7 +126,11 @@ class HTPM_Option_Page {
 	 */
 	public function page_render () {
 		// check user capabilities
-		if ( !current_user_can( 'manage_options' ) ) {
+		if ( is_network_admin() ) {
+			if ( ! current_user_can( 'manage_network_options' ) ) {
+				return;
+			}
+		} elseif ( !current_user_can( 'manage_options' ) ) {
 			return;
 		}
 		do_action('htpm_admin_notices');

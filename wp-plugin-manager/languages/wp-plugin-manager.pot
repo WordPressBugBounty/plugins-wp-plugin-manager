@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Plugin Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-07 06:04+0000\n"
+"POT-Creation-Date: 2026-09-09 04:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.26\n"
+"X-Loco-Version: 2.8.8; wp-7.1; php-8.4.18\n"
 "X-Domain: wp-plugin-manager"
 
 #: includes/api/admin-settings.php:427
@@ -32,19 +32,19 @@ msgstr ""
 msgid "Action: "
 msgstr ""
 
-#: includes/helper_functions.php:26
+#: includes/helper_functions.php:20
 msgid "Activate"
 msgstr ""
 
-#: includes/helper_functions.php:37
+#: includes/helper_functions.php:31
 msgid "Activated"
 msgstr ""
 
-#: plugin-main.php:196
+#: plugin-main.php:244
 msgid "Activating.."
 msgstr ""
 
-#: plugin-main.php:197
+#: plugin-main.php:245
 msgid "Active"
 msgstr ""
 
@@ -104,7 +104,7 @@ msgstr ""
 msgid "All Devices"
 msgstr ""
 
-#: plugin-main.php:185
+#: plugin-main.php:233
 msgid "All Items have been Loaded"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "All Posts"
 msgstr ""
 
-#: includes/api/admin-dashboard-api.php:236
+#: includes/api/admin-dashboard-api.php:348
 msgid "An error occurred while updating settings"
 msgstr ""
 
@@ -140,25 +140,6 @@ msgstr ""
 msgid "Are you cheating?"
 msgstr ""
 
-#. %1$s: project name
-#. %2$s: strong start tag
-#. %3$s: strong end tag
-#. %4$s: anchor start tag with privacy policy url
-#. %5$s: anchor end tag
-#: includes/class-diagnostic-data.php:567
-#, php-format
-msgid ""
-"At %2$s%1$s%3$s, we prioritize continuous improvement and compatibility. To "
-"achieve this, we gather non-sensitive diagnostic information and details "
-"about plugin usage. This includes your site's URL, the versions of WordPress "
-"and PHP you're using, and a list of your installed plugins and themes. We "
-"also require your email address to provide you with exclusive discount "
-"coupons and updates. This data collection is crucial for ensuring that "
-"%2$s%1$s%3$s remains up-to-date and compatible with the most widely-used "
-"plugins and themes. Rest assured, your privacy is our priority – no spam, "
-"guaranteed. %4$sPrivacy Policy%5$s"
-msgstr ""
-
 #: includes/api/admin-settings.php:426
 msgid "Backend Conditions:"
 msgstr ""
@@ -171,11 +152,15 @@ msgstr ""
 msgid "Backend: Optimized"
 msgstr ""
 
-#: plugin-main.php:192
+#: includes/templates/dashboard-widget.php:91
+msgid "Blog"
+msgstr ""
+
+#: plugin-main.php:240
 msgid "Buy Now"
 msgstr ""
 
-#: plugin-main.php:200
+#: plugin-main.php:248
 msgid "BUY PRO"
 msgstr ""
 
@@ -211,10 +196,19 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
+#: includes/api/admin-settings.php:671
+msgid "Complete online course & eLearning platform for WordPress."
+msgstr ""
+
 #: includes/api/admin-settings.php:127
 msgid ""
 "Configure conditions for WordPress admin area. E.g., use 'edit.php' for "
 "Posts page, 'post.php' for Edit Post page."
+msgstr ""
+
+#: includes/api/admin-settings.php:566
+msgid ""
+"Contact management, email marketing, newsletter & marketing automation CRM."
 msgstr ""
 
 #: includes/templates/sidebar-banner.php:21
@@ -225,11 +219,23 @@ msgstr ""
 msgid "Control Plugins Based on URL or Path"
 msgstr ""
 
-#: includes/class-diagnostic-data.php:575
+#: includes/api/admin-settings.php:557
+msgid "Cookie banner plugin for GDPR/CCPA compliant cookie consent management."
+msgstr ""
+
+#: includes/api/admin-settings.php:556
+msgid "CookieRay – Cookie Banner for Cookie Consent (GDPR/CCPA Compliant)"
+msgstr ""
+
+#: includes/class-diagnostic-data.php:648
 msgid "Count Me In"
 msgstr ""
 
-#: includes/api/admin-settings.php:643
+#: includes/api/admin-settings.php:670
+msgid "CourseGlade LMS – Online Course & eLearning Platform"
+msgstr ""
+
+#: includes/api/admin-settings.php:662
 msgid "Create beautiful sliders for your website using Elementor"
 msgstr ""
 
@@ -291,19 +297,16 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: includes/class.notices.php:273
+#: includes/class.notices.php:281
 msgid "Dismiss this notice."
-msgstr ""
-
-#: includes/api/admin-settings.php:654
-msgid "Display Google Reviews on your site."
 msgstr ""
 
 #: includes/api/admin-settings.php:412
 msgid "Display Settings"
 msgstr ""
 
-#: plugin-main.php:208 includes/api/admin-settings.php:48
+#: plugin-main.php:256 includes/api/admin-settings.php:48
+#: includes/templates/dashboard-widget.php:97
 msgid "Documentation"
 msgstr ""
 
@@ -313,7 +316,7 @@ msgid ""
 "leave it blank for the homepage."
 msgstr ""
 
-#: includes/api/admin-settings.php:529 includes/api/admin-settings.php:625
+#: includes/api/admin-settings.php:529 includes/api/admin-settings.php:644
 msgid "Easy connection of Facebook pixel to your online store."
 msgstr ""
 
@@ -366,7 +369,7 @@ msgstr ""
 msgid "Extensions For CF7"
 msgstr ""
 
-#: includes/api/admin-dashboard-api.php:224
+#: includes/api/admin-dashboard-api.php:336
 msgid "Failed to update settings in database"
 msgstr ""
 
@@ -382,7 +385,7 @@ msgstr ""
 msgid "Frontend: Optimized"
 msgstr ""
 
-#: includes/plugin-options-page.php:48 includes/api/admin-settings.php:32
+#: includes/plugin-options-page.php:68 includes/api/admin-settings.php:32
 msgid "General"
 msgstr ""
 
@@ -396,16 +399,16 @@ msgstr ""
 msgid "Get WP Plugin Manager"
 msgstr ""
 
-#: includes/api/admin-settings.php:651
-msgid "Google Place Review"
-msgstr ""
-
 #: includes/api/admin-settings.php:519
 msgid "HashBar"
 msgstr ""
 
 #. Author of the plugin
 msgid "HasThemes"
+msgstr ""
+
+#: includes/class-dashboard-widget.php:27
+msgid "HasThemes Stories"
 msgstr ""
 
 #: includes/templates/sidebar-banner.php:38
@@ -426,15 +429,15 @@ msgid ""
 "Builder."
 msgstr ""
 
-#: includes/api/admin-settings.php:490 includes/api/admin-settings.php:615
+#: includes/api/admin-settings.php:490 includes/api/admin-settings.php:634
 msgid "HT Mega"
 msgstr ""
 
-#: includes/api/admin-settings.php:642
+#: includes/api/admin-settings.php:661
 msgid "HT Slider For Elementor"
 msgstr ""
 
-#: includes/api/admin-settings.php:491 includes/api/admin-settings.php:616
+#: includes/api/admin-settings.php:491 includes/api/admin-settings.php:635
 msgid "HTMega is an absolute addon for elementor that includes 80+ elements"
 msgstr ""
 
@@ -446,7 +449,7 @@ msgstr ""
 msgid "https://hasthemes.com/plugins/"
 msgstr ""
 
-#: plugin-main.php:347
+#: plugin-main.php:363
 msgid "I already did"
 msgstr ""
 
@@ -457,7 +460,7 @@ msgid ""
 "Templates, WooCommerce Widgets,..."
 msgstr ""
 
-#: includes/api/admin-settings.php:573
+#: includes/api/admin-settings.php:591
 msgid ""
 "If you own a WooCommerce website, you’ll almost certainly want to use these "
 "capabilities: Woo Builder (Elementor WooCommerce Builder), WooCommerce "
@@ -469,42 +472,42 @@ msgid ""
 "If you wish to select custom posts, please choose the custom post types below"
 msgstr ""
 
-#: plugin-main.php:191
+#: plugin-main.php:239
 msgid "Import"
 msgstr ""
 
-#: plugin-main.php:189
+#: plugin-main.php:237
 msgid "Import to Library"
 msgstr ""
 
-#: plugin-main.php:190
+#: plugin-main.php:238
 msgid "Import to Page"
 msgstr ""
 
-#: plugin-main.php:184
+#: plugin-main.php:232
 msgid "in this package"
 msgstr ""
 
-#: includes/api/admin-settings.php:634
+#: includes/api/admin-settings.php:653
 msgid ""
 "Insert Headers and Footers Code allows you to insert Google Analytics, "
 "Facebook Pixel, custom CSS, custom HTML, JavaScript code to your website "
 "header and footer without modifying your theme code"
 msgstr ""
 
-#: includes/api/admin-settings.php:633
+#: includes/api/admin-settings.php:652
 msgid "Insert Headers and Footers Code – HT Script"
 msgstr ""
 
-#: includes/helper_functions.php:31
+#: includes/helper_functions.php:25
 msgid "Install Now"
 msgstr ""
 
-#: plugin-main.php:195
+#: plugin-main.php:243
 msgid "Installing.."
 msgstr ""
 
-#: includes/api/admin-dashboard-api.php:614
+#: includes/api/admin-dashboard-api.php:726
 msgid "Invalid post type"
 msgstr ""
 
@@ -520,16 +523,10 @@ msgstr ""
 msgid "Items Per Page in Plugin List"
 msgstr ""
 
-#: includes/api/admin-settings.php:591
+#: includes/api/admin-settings.php:565
 msgid ""
-"JustTables is an incredible WordPress plugin that lets you showcase all your "
-"WooCommerce products in a sortable and filterable table view. It allows your "
-"customers to easily navigate through different attributes of the products "
-"and compare them on a single page..."
-msgstr ""
-
-#: includes/api/admin-settings.php:590
-msgid "JustTables – WooCommerce Product Table"
+"Kelune CRM – Contact Management, Email Marketing, Newsletter & Marketing "
+"Automation"
 msgstr ""
 
 #: includes/api/admin-settings.php:162 includes/api/admin-settings.php:166
@@ -548,7 +545,7 @@ msgstr ""
 msgid "Marked as read successfully"
 msgstr ""
 
-#: plugin-main.php:346
+#: plugin-main.php:362
 msgid "Maybe Later"
 msgstr ""
 
@@ -560,11 +557,11 @@ msgstr ""
 msgid "Mobile"
 msgstr ""
 
-#: includes/plugin-options-page.php:102
+#: includes/plugin-options-page.php:122
 msgid "More details"
 msgstr ""
 
-#: plugin-main.php:206
+#: plugin-main.php:254
 msgid "Need Help with Plugin Manager?"
 msgstr ""
 
@@ -580,8 +577,8 @@ msgstr ""
 msgid "No Plugins Found"
 msgstr ""
 
-#: includes/class-diagnostic-data.php:578
-msgid "No, Thanks"
+#: includes/class-diagnostic-data.php:651
+msgid "No thanks"
 msgstr ""
 
 #: includes/api/admin-settings.php:389 includes/api/admin-settings.php:437
@@ -594,7 +591,7 @@ msgid ""
 "selected post types."
 msgstr ""
 
-#: plugin-main.php:186
+#: plugin-main.php:234
 msgid "Nothing Found"
 msgstr ""
 
@@ -602,21 +599,21 @@ msgstr ""
 msgid "Number of Posts to Load"
 msgstr ""
 
-#: plugin-main.php:345
+#: plugin-main.php:361
 msgid "Ok, you deserve it!"
 msgstr ""
 
-#: includes/api/admin-settings.php:601
+#: includes/api/admin-settings.php:620
 msgid "Others"
 msgstr ""
 
-#: plugin-main.php:207
+#: plugin-main.php:255
 msgid ""
 "Our comprehensive documentation provides detailed information on how to use "
 "Plugin Manager effectively to improve your websites performance."
 msgstr ""
 
-#: plugin-main.php:201 includes/plugin-options-page.php:97
+#: plugin-main.php:249 includes/plugin-options-page.php:117
 msgid ""
 "Our free version is great, but it doesn't have all our advanced features. "
 "The best way to unlock all of the features in our plugin is by purchasing "
@@ -639,7 +636,7 @@ msgstr ""
 msgid "Pages & Posts"
 msgstr ""
 
-#: includes/api/admin-settings.php:528 includes/api/admin-settings.php:624
+#: includes/api/admin-settings.php:528 includes/api/admin-settings.php:643
 msgid "Pixelavo – Facebook Pixel Conversion API"
 msgstr ""
 
@@ -651,16 +648,12 @@ msgstr ""
 msgid "Plugin installed successfully."
 msgstr ""
 
-#: includes/plugin-options-page.php:36 includes/plugin-options-page.php:37
+#: includes/plugin-options-page.php:56 includes/plugin-options-page.php:57
 msgid "Plugin Manager"
 msgstr ""
 
-#: plugin-main.php:257
-msgid "Plugin Not Found"
-msgstr ""
-
-#: includes/api/admin-dashboard-api.php:330
-#: includes/api/admin-dashboard-api.php:416
+#: includes/api/admin-dashboard-api.php:442
+#: includes/api/admin-dashboard-api.php:528
 msgid "Plugin not found"
 msgstr ""
 
@@ -671,10 +664,6 @@ msgstr ""
 #: includes/api/recommended-plugins-api.php:192
 #: includes/api/recommended-plugins-api.php:232
 msgid "Plugin slug is required."
-msgstr ""
-
-#: plugin-main.php:277
-msgid "Plugin Successfully Activated"
 msgstr ""
 
 #: includes/api/admin-settings.php:117
@@ -697,7 +686,7 @@ msgstr ""
 msgid "Posts, Pages & Custom Post Types"
 msgstr ""
 
-#: plugin-main.php:194
+#: plugin-main.php:242
 msgid "Preview"
 msgstr ""
 
@@ -705,7 +694,7 @@ msgstr ""
 msgid "PRO"
 msgstr ""
 
-#: plugin-main.php:198
+#: plugin-main.php:246
 msgid "Pro"
 msgstr ""
 
@@ -717,13 +706,17 @@ msgstr ""
 msgid "Rating icon"
 msgstr ""
 
-#: includes/plugin-options-page.php:65 includes/plugin-options-page.php:66
+#: includes/plugin-options-page.php:85 includes/plugin-options-page.php:86
 #: includes/api/admin-settings.php:473
 msgid "Recommended"
 msgstr ""
 
 #: includes/api/admin-settings.php:64
 msgid "Recommended Plugins"
+msgstr ""
+
+#: includes/api/admin-settings.php:608
+msgid "Recurio – Ultimate Subscription for WooCommerce"
 msgstr ""
 
 #: includes/api/admin-settings.php:445
@@ -750,7 +743,7 @@ msgstr ""
 msgid "Search plugins..."
 msgstr ""
 
-#: includes/helper_functions.php:119 includes/api/admin-settings.php:405
+#: includes/helper_functions.php:113 includes/api/admin-settings.php:405
 msgid "Select"
 msgstr ""
 
@@ -786,18 +779,16 @@ msgstr ""
 msgid "Select the device(s) where this plugin should be disabled."
 msgstr ""
 
-#. %1$s: anchor start tag with privacy policy url
-#. %2$s: anchor end tag
-#: includes/class-diagnostic-data.php:573
+#: includes/class-diagnostic-data.php:646
 #, php-format
 msgid ""
 "Server information (Web server, PHP version, MySQL version), WordPress "
 "information, site name, site URL, number of plugins, number of users, your "
 "name, and email address. You can rest assured that no sensitive data will be "
-"collected or tracked. %1$sLearn more%2$s."
+"collected or tracked. %1$sPrivacy Policy%2$s"
 msgstr ""
 
-#: includes/plugin-options-page.php:56 includes/plugin-options-page.php:57
+#: includes/plugin-options-page.php:76 includes/plugin-options-page.php:77
 #: includes/api/admin-settings.php:40 includes/api/admin-settings.php:120
 msgid "Settings"
 msgstr ""
@@ -810,7 +801,7 @@ msgstr ""
 msgid "Show Thumbnails"
 msgstr ""
 
-#: includes/api/admin-dashboard-api.php:649
+#: includes/api/admin-dashboard-api.php:761
 msgid "Sidebar template file not found."
 msgstr ""
 
@@ -826,23 +817,24 @@ msgstr ""
 msgid "Status: "
 msgstr ""
 
-#: plugin-main.php:210 includes/api/admin-settings.php:56
+#: plugin-main.php:258 includes/api/admin-settings.php:56
+#: includes/templates/dashboard-widget.php:103
 msgid "Support"
 msgstr ""
 
-#: includes/api/admin-settings.php:501 includes/api/admin-settings.php:607
+#: includes/api/admin-settings.php:501 includes/api/admin-settings.php:626
 msgid "Support Genix is a support ticket system for WordPress and WooCommerce."
 msgstr ""
 
-#: includes/api/admin-settings.php:500 includes/api/admin-settings.php:606
+#: includes/api/admin-settings.php:500 includes/api/admin-settings.php:625
 msgid "Support Genix Lite – Support Tickets Managing System"
 msgstr ""
 
-#: includes/api/admin-settings.php:581
+#: includes/api/admin-settings.php:599
 msgid "Swatchly"
 msgstr ""
 
-#: includes/api/admin-settings.php:582
+#: includes/api/admin-settings.php:600
 msgid ""
 "Swatchly – WooCommerce Variation Swatches for Products (product attributes: "
 "Image swatch, Color swatches, Label swatches...)"
@@ -867,14 +859,14 @@ msgid ""
 "minutes & means a lot to us!"
 msgstr ""
 
-#: plugin-main.php:342
+#: plugin-main.php:358
 msgid "Thank you for choosing WP Plugin Manager to manage you plugins!"
 msgstr ""
 
 #. %1$s: project name
 #. %2$s: strong start tag
 #. %3$s: strong end tag
-#: includes/class-diagnostic-data.php:607
+#: includes/class-diagnostic-data.php:674
 #, php-format
 msgid "Thank you very much for supporting %2$s%1$s%3$s."
 msgstr ""
@@ -893,6 +885,12 @@ msgstr ""
 msgid "Try adjusting your search or filter criteria"
 msgstr ""
 
+#: includes/api/admin-settings.php:609
+msgid ""
+"Ultimate subscription plugin for WooCommerce recurring payments and "
+"memberships."
+msgstr ""
+
 #: includes/api/admin-settings.php:156
 msgid "Updates"
 msgstr ""
@@ -901,7 +899,7 @@ msgstr ""
 msgid "Upgrade To PRO"
 msgstr ""
 
-#: plugin-main.php:240 plugin-main.php:241 includes/api/admin-settings.php:401
+#: plugin-main.php:288 plugin-main.php:289 includes/api/admin-settings.php:401
 msgid "Upgrade to Pro"
 msgstr ""
 
@@ -917,8 +915,15 @@ msgstr ""
 msgid "Version"
 msgstr ""
 
-#: plugin-main.php:209
+#: plugin-main.php:257
 msgid "Video Tutorial"
+msgstr ""
+
+#: includes/class-diagnostic-data.php:655
+#, php-format
+msgid ""
+"Want to help make %2$s%1$s%3$s even more awesome? Allow %1$s to collect "
+"diagnostic data and usage information. (%4$swhat we collect%5$s)"
 msgstr ""
 
 #: includes/templates/sidebar-banner.php:17
@@ -929,23 +934,23 @@ msgstr ""
 msgid "What's New in Plugin Manager"
 msgstr ""
 
-#: includes/api/admin-settings.php:509 includes/api/admin-settings.php:563
+#: includes/api/admin-settings.php:509 includes/api/admin-settings.php:581
 msgid "Whols – Wholesale Prices and B2B Store"
 msgstr ""
 
-#: includes/api/admin-settings.php:558
+#: includes/api/admin-settings.php:576
 msgid "WooCommerce"
 msgstr ""
 
-#: includes/api/admin-settings.php:510 includes/api/admin-settings.php:564
+#: includes/api/admin-settings.php:510 includes/api/admin-settings.php:582
 msgid "WooCommerce Wholesale plugin for B2B store management."
 msgstr ""
 
-#: includes/api/admin-settings.php:479 includes/api/admin-settings.php:572
+#: includes/api/admin-settings.php:479 includes/api/admin-settings.php:590
 msgid "WooLentor"
 msgstr ""
 
-#: plugin-main.php:343
+#: plugin-main.php:359
 msgid ""
 "Would you mind doing us a huge favor by providing your feedback on WordPress?"
 " Your support helps us spread the word and greatly boosts our motivation."
@@ -967,10 +972,4 @@ msgstr ""
 
 #: includes/api/changelog-api.php:89
 msgid "You do not have permissions to manage this resource."
-msgstr ""
-
-#. %1$s: project name
-#: includes/class-diagnostic-data.php:586
-#, php-format
-msgid "🌟 Enhance Your %1$s Experience as a Valued Contributor!"
 msgstr ""

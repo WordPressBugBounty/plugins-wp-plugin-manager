@@ -3,10 +3,11 @@
 * Plugin Name: WP Plugin Manager
 * Plugin URI: https://hasthemes.com/plugins/
 * Description: WP Plugin Manager is a WordPress plugin that allows you to disable plugins for certain pages, posts or URI conditions.
-* Version: 1.4.15
+* Version: 1.4.16
 * Author: HasThemes
 * Author URI: https://hasthemes.com/
 * Text Domain: wp-plugin-manager
+* Network: true
 */
 
 defined( 'ABSPATH' ) or die();
@@ -14,7 +15,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * Define path
  */
-define( 'HTPM_PLUGIN_VERSION', '1.4.15' );
+define( 'HTPM_PLUGIN_VERSION', '1.4.16' );
 define( 'HTPM_ROOT_PL', __FILE__ );
 define( 'HTPM_ROOT_URL', plugins_url('', HTPM_ROOT_PL) );
 define( 'HTPM_ROOT_DIR', dirname( HTPM_ROOT_PL ) );
@@ -46,6 +47,7 @@ class HTPM_Main {
 
         register_activation_hook( HTPM_ROOT_PL, [$this, 'activation'] );
         register_deactivation_hook( __FILE__, [$this, 'deactivation'] );
+        add_action( 'wp_initialize_site', [$this, 'new_site_activation'], 100 );
 
         add_action('in_admin_header', [$this, 'remove_admin_notice'], 1000);
         add_action( 'init', [$this, 'i18n'] );
@@ -77,13 +79,26 @@ class HTPM_Main {
     }
 
     /**
-     * Plugin activation hook
+     * Plugin activation hook.
+     * When network-activated, WP fires this once (not once per site), so we
+     * loop through every site ourselves to mark the plugin active there too
+     * — otherwise the mu-plugin enforcement bails out on every subsite.
      */
-    function activation(){
-        if ( ! get_option( 'htpm_installed' ) ) {
-            update_option( 'htpm_installed', time() );
+    function activation( $network_wide = false ){
+        // Only one of the two may run (they share class/function names).
+        // Doing this here means the version being activated always wins,
+        // for network activation as well as per-site.
+        $this->deactivate_pro_version();
+
+        if ( is_multisite() && $network_wide ) {
+            foreach ( get_sites( [ 'fields' => 'ids' ] ) as $site_id ) {
+                switch_to_blog( $site_id );
+                $this->mark_site_active();
+                restore_current_blog();
+            }
+        } else {
+            $this->mark_site_active();
         }
-        update_option('htpm_status', 'active');
 
         // replace the old file
         $mu_plugin_file_source_path = HTPM_ROOT_DIR . '/mu-plugin/htpm-mu-plugin.php';
@@ -97,10 +112,37 @@ class HTPM_Main {
 
         $mu_plugin_file_path = $mu_plugins_path . '/htpm-mu-plugin.php';
 
-        // add mu file 
+        // add mu file
         if ( file_exists( $mu_plugins_path ) ){
             copy( $mu_plugin_file_source_path, $mu_plugin_file_path );
         }
+    }
+
+    /**
+     * Marks the plugin active on the current site (installed timestamp + status).
+     * @return void
+     */
+    function mark_site_active(){
+        if ( ! get_option( 'htpm_installed' ) ) {
+            update_option( 'htpm_installed', time() );
+        }
+        update_option( 'htpm_status', 'active' );
+    }
+
+    /**
+     * When a new site is created on a network where this plugin is already
+     * network-active, mark it active there too (activation hook only fires
+     * once at network-activation time, not for sites created afterwards).
+     * @param WP_Site $new_site
+     * @return void
+     */
+    function new_site_activation( $new_site ){
+        if ( ! is_plugin_active_for_network( HTPM_PLUGIN_BASE ) ) {
+            return;
+        }
+        switch_to_blog( $new_site->blog_id );
+        $this->mark_site_active();
+        restore_current_blog();
     }
 
     /**
@@ -126,18 +168,32 @@ class HTPM_Main {
      */
     function deactivate_pro_version(){
         deactivate_plugins('wp-plugin-manager-pro/plugin-main.php');
+        if ( is_multisite() ) {
+            deactivate_plugins( 'wp-plugin-manager-pro/plugin-main.php', false, true );
+        }
     }
 
     /**
      * Include files
      */
     function include_files() {
+        // Both plugins declare the same function and class names, so loading
+        // both is a fatal redeclare. They normally deactivate each other, but
+        // that only covers per-site activation — on multisite both can be
+        // network-activated at once. Pro wins: stay dormant and let it own
+        // the shared includes.
+        if ( class_exists( 'HTPMPRO_Main' ) ) {
+            return;
+        }
+
         require_once HTPM_ROOT_DIR . '/includes/helper_functions.php';
         require_once HTPM_ROOT_DIR . '/includes/plugin-options-page.php';
         if(is_admin()){
             include_once( HTPM_ROOT_DIR . '/includes/class-diagnostic-data.php');
             include_once( HTPM_ROOT_DIR . '/includes/class.notices.php');
            // include_once( HTPM_ROOT_DIR . '/includes/HTPM_Trial.php');
+            include_once( HTPM_ROOT_DIR . '/includes/class-api.php');
+            include_once( HTPM_ROOT_DIR . '/includes/class-dashboard-widget.php');
         }
         include_once( HTPM_ROOT_DIR . '/includes/api/admin-dashboard-api.php');
         include_once( HTPM_ROOT_DIR . '/includes/api/changelog-api.php');
@@ -170,6 +226,15 @@ class HTPM_Main {
             }, 10, 3);
             
             $admin_settings = WP_Plugin_Manager_Settings::get_instance();
+
+                // On Network Admin, the settings actually being edited are
+                // the network-wide ones — read those directly. Everywhere
+                // else, use the effective (site + inherited network default)
+                // view so the UI matches what's actually enforced.
+                $htpm_current_options = is_multisite() && is_network_admin()
+                    ? get_site_option( 'htpm_network_options', [] )
+                    : htpm_get_effective_options();
+
                 $localize_data = [
                     'ajaxurl'          => admin_url( 'admin-ajax.php' ),
                     'adminURL'         => admin_url(),
@@ -177,6 +242,7 @@ class HTPM_Main {
                     'assetsURL'        => plugin_dir_url( __FILE__ ) . 'assets/',
                     'restUrl' => rest_url(),  // This will include the wp-json prefix
                     'nonce' => wp_create_nonce('wp_rest'),
+                    'isNetworkAdmin' => is_multisite() && is_network_admin(),
                     'licenseNonce'  => wp_create_nonce( 'el-license' ),
                     'licenseEmail'  => get_option( 'WPPluginManagerPro_lic_email', get_bloginfo( 'admin_email' ) ),
                     'message'          =>[
@@ -200,7 +266,7 @@ class HTPM_Main {
                             'desc' => __( 'Our free version is great, but it doesn\'t have all our advanced features. The best way to unlock all of the features in our plugin is by purchasing the pro version.', 'wp-plugin-manager' )
                         ],
                     ],
-                    'existingData' => get_option('htpm_options'),
+                    'existingData' => $htpm_current_options,
                     'helpSection' => [
                         'title' => esc_html__('Need Help with Plugin Manager?', 'wp-plugin-manager'),
                         'description' => esc_html__('Our comprehensive documentation provides detailed information on how to use Plugin Manager effectively to improve your websites performance.', 'wp-plugin-manager'),
@@ -222,7 +288,7 @@ class HTPM_Main {
                         'menu_settings' => $admin_settings->get_menu_settings(),
                         'recommendations_plugins' => $admin_settings->get_recommendations_plugins(),
                         'backend_modal_settings' => $admin_settings->get_backend_modal_settings(),
-                        'allSettings' => get_option('htpm_options') ? get_option('htpm_options') : [],
+                        'allSettings' => $htpm_current_options ? $htpm_current_options : [],
                     ],
                 ];
                 wp_localize_script( 'htpm-vue-settings', 'HTPMM', $localize_data );
@@ -248,6 +314,14 @@ class HTPM_Main {
      * Add mu file
      */
     function create_mu_file(){
+        // Both plugins write their own mu-plugin to the same path. If Pro is
+        // also active, leave the file alone — otherwise the two would
+        // overwrite each other on every request and enforcement would
+        // flip-flop between the free and pro rule engines.
+        if ( class_exists( 'HTPMPRO_Main' ) ) {
+            return;
+        }
+
         update_option('htpm_available_post_types', array_merge(array_keys(get_post_types( ['_builtin' => false, 'public' => true], 'names')), ['post', 'page']));
         // create mu file
         $mu_plugin_file_source_path = HTPM_ROOT_DIR . '/mu-plugin/htpm-mu-plugin.php';
@@ -274,7 +348,24 @@ class HTPM_Main {
         }
     }
 
+    /**
+     * Whether the Pro version is also loaded. Both plugins declare the same
+     * class and function names, so when Pro is present this one stays
+     * dormant and skips its own includes — meaning anything that depends on
+     * those includes must not run either.
+     *
+     * Checked at call time rather than in the constructor because plugin
+     * load order between the two isn't guaranteed.
+     * @return bool
+     */
+    private function is_dormant(){
+        return class_exists( 'HTPMPRO_Main' );
+    }
+
     function show_admin_diagnostic_data_notice() {
+        if ( $this->is_dormant() ) {
+            return;
+        }
         $notice_instance = HTPM_Diagnostic_Data::get_instance();
         if ( ! $notice_instance->should_show_notice() ) {
             return;
@@ -300,6 +391,9 @@ class HTPM_Main {
     }
 
     function show_admin_rating_notice() {
+        if ( $this->is_dormant() ) {
+            return;
+        }
         $logo_url = HTPM_ROOT_URL . "/assets/images/logo.jpg";
         $message = '<div class="hastech-review-notice-wrap">
             <div class="hastech-rating-notice-logo">
@@ -333,6 +427,9 @@ class HTPM_Main {
 
 
     function show_admin_promo_notice() {
+        if ( $this->is_dormant() ) {
+            return;
+        }
         require HTPM_ROOT_DIR . '/includes/notice-manager.php';
         $noticeManager = HTPM_Notice_Manager::instance();
         $notices = $noticeManager->get_notices_info();

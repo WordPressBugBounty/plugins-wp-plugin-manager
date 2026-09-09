@@ -6,6 +6,118 @@ if (!class_exists('WP_REST_Response')) {
 }
 
 /**
+ * Plugins WordPress actually considers active on this site: the per-site
+ * `active_plugins` list, plus (on multisite) anything network-activated —
+ * those live in a separate site option and are otherwise invisible here,
+ * which made network-active plugins look "inactive" everywhere in the UI.
+ *
+ * @return array Plugin file paths.
+ */
+function htpm_get_active_plugins() {
+    $active_plugins = get_option( 'active_plugins', [] );
+    if ( is_multisite() ) {
+        $network_active = array_keys( get_site_option( 'active_sitewide_plugins', [] ) );
+        $active_plugins = array_unique( array_merge( $active_plugins, $network_active ) );
+    }
+    return $active_plugins;
+}
+
+/**
+ * Whether the current REST request is asking to read/write the network-wide
+ * (multisite) rules rather than this site's own rules. The Vue app marks
+ * this via the X-HTPM-Network header when it's loaded on the Network Admin
+ * settings page (see src/utils/axios.js).
+ *
+ * @param WP_REST_Request|null $request
+ * @return bool
+ */
+function htpm_request_is_network( $request ) {
+    return is_multisite() && $request && $request->get_header( 'x_htpm_network' ) === '1';
+}
+
+/**
+ * Capability check that accounts for network-scoped requests: only a super
+ * admin (manage_network_options) may read/write the network-wide rules,
+ * regardless of what capability the site-level equivalent requires.
+ *
+ * @param WP_REST_Request|null $request
+ * @param string $fallback_cap Capability required for a normal, per-site request.
+ * @return bool
+ */
+function htpm_check_permission( $request, $fallback_cap ) {
+    if ( htpm_request_is_network( $request ) ) {
+        return current_user_can( 'manage_network_options' );
+    }
+    return current_user_can( $fallback_cap );
+}
+
+/**
+ * Reads the plugin rules/settings for the current request: the network-wide
+ * option when the request is network-scoped, otherwise this site's own option.
+ *
+ * @param WP_REST_Request|null $request
+ * @return array
+ */
+function htpm_get_saved_options( $request = null ) {
+    if ( htpm_request_is_network( $request ) ) {
+        return get_site_option( 'htpm_network_options', [] );
+    }
+    return get_option( 'htpm_options', [] );
+}
+
+/**
+ * Like htpm_get_saved_options(), but for *displaying* a site's rules: a
+ * plugin the site hasn't configured itself still shows the network-wide
+ * default, so the UI matches what actually gets enforced. Only used for
+ * reads — saves must stay on htpm_get_saved_options()'s raw, unmerged data,
+ * otherwise saving one plugin's rule would silently freeze every currently
+ * inherited network default into that site's own option.
+ *
+ * @param WP_REST_Request|null $request
+ * @return array
+ */
+function htpm_get_effective_options( $request = null ) {
+    $options = htpm_get_saved_options( $request );
+
+    if ( is_multisite() && ! htpm_request_is_network( $request ) ) {
+        $network_options = get_site_option( 'htpm_network_options', [] );
+        if ( ! empty( $network_options ) ) {
+            $site_list = isset( $options['htpm_list_plugins'] ) ? $options['htpm_list_plugins'] : [];
+            $network_list = isset( $network_options['htpm_list_plugins'] ) ? $network_options['htpm_list_plugins'] : [];
+
+            // Top-level scalar settings (e.g. the Settings tab's display
+            // options) inherit the network default for anything this site
+            // hasn't set itself.
+            $options = array_merge( $network_options, $options );
+
+            // Per-plugin rules need finer-grained merging: a site's own rule
+            // for a given plugin should win over the network default for
+            // that same plugin, not wholesale replace the whole list.
+            $options['htpm_list_plugins'] = array_replace( $network_list, $site_list );
+        }
+    }
+
+    return $options;
+}
+
+/**
+ * Saves the plugin rules/settings for the current request, into the
+ * network-wide option when the request is network-scoped, otherwise into
+ * this site's own option.
+ *
+ * @param WP_REST_Request|null $request
+ * @param array $options
+ * @return void
+ */
+function htpm_save_options( $request, $options ) {
+    if ( htpm_request_is_network( $request ) ) {
+        update_site_option( 'htpm_network_options', $options );
+    } else {
+        update_option( 'htpm_options', $options );
+    }
+}
+
+/**
  * Register custom REST API endpoints for plugin management
  */
 function htpm_register_rest_routes() {
@@ -14,8 +126,8 @@ function htpm_register_rest_routes() {
     register_rest_route('htpm/v1', '/plugins/settings', [
         'methods' => WP_REST_Server::READABLE,
         'callback' => 'htpm_get_all_plugin_settings',
-        'permission_callback' => function() {
-            return current_user_can('manage_options');
+        'permission_callback' => function( $request ) {
+            return htpm_check_permission( $request, 'manage_options' );
         }
     ]);
 
@@ -23,26 +135,26 @@ function htpm_register_rest_routes() {
     register_rest_route('htpm/v1', '/plugins', [
         'methods' => 'GET',
         'callback' => 'htpm_get_plugins',
-        'permission_callback' => function() {
-            return current_user_can('activate_plugins');
+        'permission_callback' => function( $request ) {
+            return htpm_check_permission( $request, 'activate_plugins' );
         }
     ]);
-    
+
     // Get plugin settings endpoint
     register_rest_route('htpm/v1', '/plugins/(?P<id>\d+)/settings', [
         'methods' => 'GET',
         'callback' => 'htpm_get_plugin_settings',
-        'permission_callback' => function() {
-            return current_user_can('activate_plugins');
+        'permission_callback' => function( $request ) {
+            return htpm_check_permission( $request, 'activate_plugins' );
         }
     ]);
-    
+
     // Update plugin settings endpoint
     register_rest_route('htpm/v1', '/plugins/(?P<id>\d+)/settings', [
         'methods' => 'POST',
         'callback' => 'htpm_update_plugin_settings',
-        'permission_callback' => function() {
-            return current_user_can('activate_plugins');
+        'permission_callback' => function( $request ) {
+            return htpm_check_permission( $request, 'activate_plugins' );
         }
     ]);
     
@@ -103,8 +215,8 @@ function htpm_register_rest_routes() {
     register_rest_route('htpm/v1', '/update-dashboard-settings', [
         'methods' => 'POST',
         'callback' => 'htpm_update_dashboard_settings',
-        'permission_callback' => function() {
-            return current_user_can('manage_options');
+        'permission_callback' => function( $request ) {
+            return htpm_check_permission( $request, 'manage_options' );
         }
     ]);
     
@@ -118,8 +230,8 @@ function htpm_get_all_plugin_settings($request) {
     }
     
     $all_plugins = get_plugins();
-    $active_plugins = get_option('active_plugins', []);
-    $options = get_option('htpm_options', []);
+    $active_plugins = htpm_get_active_plugins();
+    $options = htpm_get_effective_options($request);
     $all_settings = [];
     
     $index = 0;
@@ -191,7 +303,7 @@ function htpm_update_dashboard_settings($request) {
         }
         
         // Get current options
-        $current_options = get_option('htpm_options');
+        $current_options = htpm_get_saved_options($request);
         
         // Initialize options with defaults if not set
         $options = wp_parse_args($current_options, [
@@ -216,9 +328,9 @@ function htpm_update_dashboard_settings($request) {
         }
         
         // Update options
-        $update_result = update_option('htpm_options', $options);
-        
-        if ($update_result === false && $options !== get_option('htpm_options')) {
+        htpm_save_options($request, $options);
+
+        if ($options !== htpm_get_saved_options($request)) {
             return new WP_REST_Response([
                 'success' => false,
                 'message' => esc_html__('Failed to update settings in database', 'wp-plugin-manager')
@@ -242,16 +354,16 @@ function htpm_update_dashboard_settings($request) {
 /**
  * Get all plugins with their status
  */
-function htpm_get_plugins() {
+function htpm_get_plugins($request = null) {
     // Ensure get_plugins() function is available
     if (!function_exists('get_plugins')) {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
-    
+
     $all_plugins = get_plugins();
-    $active_plugins = get_option('active_plugins', []);
+    $active_plugins = htpm_get_active_plugins();
     $update_plugins = get_site_transient('update_plugins');
-    $htpm_options = get_option('htpm_options', []);
+    $htpm_options = htpm_get_effective_options($request);
     $htpm_list_plugins = isset($htpm_options['htpm_list_plugins']) ? $htpm_options['htpm_list_plugins'] : [];
     
     $plugins = [];
@@ -313,7 +425,7 @@ function htpm_get_plugin_settings($request) {
     }
     
     $all_plugins = get_plugins();
-    $active_plugins = get_option('active_plugins', []);
+    $active_plugins = htpm_get_active_plugins();
     $plugin_path = null;
     
     // Convert numeric ID to plugin path
@@ -331,8 +443,8 @@ function htpm_get_plugin_settings($request) {
     }
     
     // Get stored settings for this plugin
-    $options = get_option('htpm_options', []);
-    $plugin_settings = isset($options['htpm_list_plugins'][$plugin_path]) 
+    $options = htpm_get_effective_options($request);
+    $plugin_settings = isset($options['htpm_list_plugins'][$plugin_path])
         ? $options['htpm_list_plugins'][$plugin_path] 
         : [];
     
@@ -417,7 +529,7 @@ function htpm_update_plugin_settings($request) {
     }
     
     // Update the settings
-    $options = get_option('htpm_options', []);
+    $options = htpm_get_saved_options($request);
     if (!isset($options['htpm_list_plugins'])) {
         $options['htpm_list_plugins'] = [];
     }
@@ -532,7 +644,7 @@ function htpm_update_plugin_settings($request) {
     
     // Save the updated options
     $options['htpm_list_plugins'][$plugin_path] = $sanitized_settings;
-    update_option('htpm_options', $options);
+    htpm_save_options($request, $options);
     
     return new WP_REST_Response([
         'success' => true,
