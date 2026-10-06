@@ -74,8 +74,8 @@ class Plugins extends \WP_REST_Controller {
     }
 
     public function permissions_check($request) {
-        // Allow plugin info access to all logged-in users
-        return is_user_logged_in();
+        // Only users who can manage plugins may use these endpoints
+        return current_user_can('activate_plugins');
     }
 
     public function get_plugins_info($request) {

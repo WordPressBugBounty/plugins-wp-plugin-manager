@@ -1,45 +1,57 @@
 === WP Plugin Manager - Deactivate plugins per page  ===
 Contributors: hasthemes, htplugins, devitemsllc, zenaulislam, aslamhasib, madhusudandev
-Tags: plugin manager, disable plugins, performance optimization, selective loading, wordpress speed
+Tags: plugin manager, disable plugins, disable plugins per page, conditional plugin loading, performance
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.16
+Stable tag: 1.4.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-"WP Plugin Manager" is a plugin that allows you to disable plugins on specific pages, posts, or devices for better performance.
+WP Plugin Manager lets you disable plugins on specific pages and posts so they only load where needed. No code required.
 
 == Description ==
-= Speed Up Your WordPress Site by 300% or More! 🚀 =
+= Disable WordPress Plugins on Specific Pages and Posts =
 
-**WP Plugin Manager** is a powerful WordPress performance optimization tool that gives you complete control over which plugins load on each page of your website. Stop unnecessary plugins from loading where they're not needed and dramatically improve your site's speed and user experience.
+**WP Plugin Manager** is a free WordPress plugin that lets you turn off any plugin on the pages, posts, or custom post types where you don't need it. A plugin that is turned off for a page does not load at all on that page, so its PHP code, database queries, and CSS/JS files are skipped for that request. Fewer plugins loading per page means less work for your server and usually faster pages.
 
-Boost your WordPress site speed by selectively disabling plugins on **specific pages, posts, and devices.** The ultimate plugin optimization tool for better performance.
+You choose a plugin, choose the pages or posts where it should not load, and save. Device-based rules (desktop, tablet, mobile) and admin-area rules are available in the Pro version.
+
+[youtube https://youtu.be/vrWVOEQjQe8]
+
+Video: a walkthrough of setting up WP Plugin Manager and disabling a plugin on a chosen page.
 
 🚀 [Get Pro Version](https://hasthemes.com/plugins/wp-plugin-manager-pro/) | 📹 [Watch Video Tutorial](https://www.youtube.com/watch?v=u94hkbTzKFU) | 📚 [Documentation](https://hasthemes.com/docs/wp-plugin-manager/) | 💬 [Support](https://hasthemes.com/contact-us/)
 
-= Why Your Site Needs Plugin Manager =
+= Why disable plugins on specific pages? =
 
-Every active plugin on your WordPress site loads its CSS and JavaScript files on EVERY page – even where they're not needed. This creates:
+By default, every active WordPress plugin loads on every page, including pages that never use it. A contact form plugin loads on blog posts, a checkout plugin loads on your about page, and so on. This can lead to:
 
-* ❌ Slower page load times
-* ❌ Higher server resource usage
-* ❌ Poor user experience
-* ❌ Lower conversion rates
-* ❌ Negative SEO impact
+* Slower page load times
+* Higher server resource usage
+* Unneeded CSS and JavaScript on pages that don't use it
 
-**Plugin Manager solves this problem** by letting you disable plugins on specific pages, posts, or device types where they're not required.
+WP Plugin Manager solves this by letting you disable plugins on the specific pages and posts where they're not required.
 
-= 🎯 Key Benefits =
+= Key Benefits =
 
-* **⚡ Faster Loading Speed:** Reduce page load time by up to 90%
-* **📈 Better SEO Rankings:** Google loves fast-loading websites
-* **💰 Higher Conversion Rates:** Every second of load time matters
-* **🖥️ Reduced Server Load:** Lower hosting costs and better stability
-* **📱 Device-Specific Optimization:** Different rules for mobile, tablet, and desktop
+* **Faster pages:** Plugins that don't load can't slow a page down. Results depend on your site and which plugins you disable.
+* **Less server work:** Skipped plugins mean fewer PHP calls and database queries per request.
+* **Simple control:** Turn plugins off per page or post from one dashboard, with no code.
+* **Safe:** Plugin files are never changed or deleted. Re-enable a plugin at any time.
+* **Device-specific rules (Pro):** Different rules for desktop, tablet, and mobile.
 
-= 🛠️ Core Features (Free Version) =
+= How is WP Plugin Manager different from asset cleanup tools? =
+
+Asset cleanup tools remove individual CSS and JavaScript files from a page. WP Plugin Manager stops the entire plugin from loading on that page, so its PHP code and database queries are skipped too, not just its assets.
+
+= What WP Plugin Manager does not do =
+
+* It does not minify, combine, or delay CSS and JavaScript.
+* It does not cache pages. Use it alongside a caching plugin if you need caching.
+* It does not delete or modify other plugins' files.
+
+= Core Features (Free Version) =
 
 **Plugin Control**
 * Selectively disable any plugin on specific pages or posts
@@ -53,72 +65,72 @@ Every active plugin on your WordPress site loads its CSS and JavaScript files on
 * Bulk selection for multiple pages/posts
 * Support for custom post types
 
+**Multisite Support**
+* Network Admin settings page for super admins
+* Configure plugin rules once and apply them across every site in your network
+* Override the network rules on individual sites when needed
+* Network-activated plugins show up correctly in the plugin list
+
 **User-Friendly Interface**
 * Intuitive plugin management dashboard
 * Clear visual indicators
 * No coding required
 * Lightweight and fast
 
-= [youtube https://youtu.be/vrWVOEQjQe8] =
+**Pro Features - [Unlock All Features](https://hasthemes.com/plugins/wp-plugin-manager-pro/)**
 
-**💎 Pro Features - [Unlock All Features](https://hasthemes.com/plugins/wp-plugin-manager-pro/)**
-
-**🔥 Advanced Device Targeting**
+**Advanced Device Targeting**
 * Desktop-only rules
 * Tablet-specific optimization
 * Mobile-focused settings
 * Combined device rules (Desktop + Tablet, etc.)
 
-**🔥 Backend/Admin Optimization**
+**Backend/Admin Optimization**
 * Control plugins in WordPress admin area
 * Specific admin page targeting
 * Custom PHP file conditions
 * Reduce admin panel load time
 
-**🔥 Advanced URL & Path Control**
+**Advanced URL & Path Control**
 * Custom URL pattern matching
 * Directory-based rules
 
-**🔥 Enhanced Features**
+**Enhanced Features**
 * Enable plugins on selected pages (inverse logic)
 * Extended post loading (manage 150+ posts)
 * Multiple conditional rules
 * Priority support
 
-= 🏆 Why Choose Plugin Manager? =
+= Why choose WP Plugin Manager? =
 
-1. **Proven Results:** Users report 50-90% improvement in page load times
-2. **Easy to Use:** No technical knowledge required
-3. **Safe & Reliable:** Doesn't modify plugin files
-4. **Instant Impact:** See results immediately
-5. **Regular Updates:** Actively maintained and improved
-6. **Expert Support:** Professional help when you need it
+1. **Easy to use:** No technical knowledge required
+2. **Safe:** Doesn't modify other plugins' files
+3. **Immediate effect:** Rules apply as soon as you save
+4. **Regular updates:** Actively maintained
+5. **Support:** Help is available through our [support team](https://hasthemes.com/contact-us/)
 
-= 📊 Performance Impact =
+= Before and after WP Plugin Manager =
 
-**Before Plugin Manager:**
-* All plugins load on every page
-* Unnecessary CSS/JS files everywhere
-* Slow page load times
-* High server resource usage
+**Before:**
+* All active plugins load on every page
+* CSS and JS from every plugin load on every page
 
-**After Plugin Manager:**
-* Plugins load only where needed
-* Minimal CSS/JS files per page
-* Lightning-fast page loads
-* Optimized server performance
+**After:**
+* Plugins load only on the pages where you need them
+* Pages load only the CSS and JS they use
 
-= 🔧 Perfect For =
+= Who uses WP Plugin Manager? =
 
 * **eCommerce Sites:** Disable checkout plugins on blog pages
 * **Membership Sites:** Control member-only plugin loading
 * **Business Websites:** Optimize contact form plugin loading
 * **Blogs:** Disable unnecessary plugins on article pages
 * **Portfolio Sites:** Load gallery plugins only where needed
+* **Multisite Networks:** Set plugin rules once for the whole network and fine-tune per site
 
-= 🌟 Join Thousands of Optimized WordPress Sites =
+= Get started =
 
-Stop letting unnecessary plugins slow down your website. Install Plugin Manager today and experience the difference a well-optimized site can make!
+Install WP Plugin Manager, pick a plugin you don't need on every page, and turn it off where it isn't used.
 
 **Need Help?** Check our [documentation](https://hasthemes.com/docs/wp-plugin-manager/) or [contact our support team](https://hasthemes.com/contact-us/).
 
@@ -138,35 +150,64 @@ Explore our other WordPress solutions to enhance your website:
 
 == Frequently Asked Questions ==
 
+= How do I disable a plugin on a specific page in WordPress? =
+
+1. Install and activate WP Plugin Manager.
+2. Open **Plugin Manager** in your WordPress admin menu.
+3. Select the plugin you want to turn off.
+4. Choose the pages or posts where it should not load.
+5. Save your settings. The plugin no longer loads on those pages.
+
+= How does WP Plugin Manager work? =
+
+WP Plugin Manager adds a small must-use plugin file (htpm-mu-plugin.php) to your wp-content/mu-plugins folder. Must-use plugins load before regular plugins, so it can compare the current page URL with your rules and stop the matching plugins from loading for that request. Your rules are stored in the database, and other plugins' files are never changed. Deleting WP Plugin Manager removes the file.
+
 = Will this break my website? =
 
-No! Plugin Manager safely controls plugin loading without modifying any plugin files. If you disable a required plugin by mistake, simply re-enable it.
+It shouldn't. WP Plugin Manager only controls whether a plugin loads on the pages you choose, and it doesn't modify any plugin files. If a page stops working correctly, re-enable the plugin for that page. Be careful with plugins that other plugins or your theme depend on.
 
-= Can I use this with caching plugins? =
+= Does it work with WordPress Multisite? =
 
-Yes! Plugin Manager works perfectly with all major caching plugins. Clear your cache after making changes for the best results.
+Yes. Network-activate the plugin, then open **Plugin Manager** in the Network Admin to set rules that apply to every site in your network. Individual sites can still set their own rules for a plugin, and a site's own rule takes priority over the network rule for that plugin.
+
+= Who can manage the network-wide rules? =
+
+Only super admins. Site admins manage rules for their own site only.
+
+= Can I use WP Plugin Manager with caching plugins? =
+
+Yes. WP Plugin Manager works at the plugin-loading level, so it can be used alongside caching plugins. If a page is served from cache, clear the cache after changing your rules so the change shows up.
+
+= Does it replace a caching or speed optimization plugin? =
+
+No. It only controls which plugins load on a page. It does not cache pages or minify files.
 
 = Does it work with all plugins? =
 
-Plugin Manager works with 99% of WordPress plugins. Some security or system plugins may need to remain active on all pages.
+It can be used with most WordPress plugins. Security plugins and plugins that other parts of your site depend on should usually stay active on all pages.
 
 = Can I disable plugins in the admin area? =
 
-Yes, but this is a Pro feature. The Pro version allows complete backend/admin area optimization.
-
-= Is there a performance impact from using this plugin? =
-
-No. Plugin Manager is extremely lightweight and actually improves performance by preventing unnecessary plugin loading.
+Yes, in the Pro version. The free version applies rules to the front end of your site.
 
 = Can I set different rules for mobile devices? =
 
-Yes! Device-specific targeting is available in the Pro version, allowing different rules for desktop, tablet, and mobile.
+Yes, in the Pro version. Device-specific targeting lets you set different rules for desktop, tablet, and mobile.
 
-= How much speed improvement can I expect? =
+= Is there a performance impact from using this plugin? =
 
-Results vary based on your site, but users typically see 30-90% improvement in page load times.
+The plugin is lightweight. Rules are checked once per page request, and plugins you disable on a page are not loaded on it.
+
+= How much faster will my site be? =
+
+It depends on your site and which plugins you disable. Disabling heavy plugins on pages that don't use them gives the biggest gain. Test your pages before and after with a speed tool such as PageSpeed Insights or GTmetrix.
 
 == Changelog ==
+= Version: 1.4.17 Date: 06 October 2026 =
+* Fixed: Restricted the recommended plugins endpoints to users who can manage plugins.
+* Fixed: A few minor issues.
+* Tested: Compatibility with the latest version of WordPress.
+
 = Version: 1.4.16 Date: 09 September 2026 =
 * Added: Multisite support — configure plugin rules once at Network Admin level and apply them across every site, with the option to override on individual sites.
 * Fixed: Plugins activated at the network level not appearing correctly in the plugin list.
@@ -363,6 +404,12 @@ Results vary based on your site, but users typically see 30-90% improvement in p
 3. Choose the downloaded file and click **Install Now**
 4. Activate the plugin
 5. Find **Plugin Manager** in your WordPress admin menu
+
+= Multisite Installation =
+1. Install the plugin from **Network Admin > Plugins**
+2. Click **Network Activate**
+3. Open **Plugin Manager** in the Network Admin menu to set rules for all sites
+4. Optionally, open **Plugin Manager** on an individual site to override the network rules for that site
 
 = First Steps =
 1. After activation, visit the Plugin Manager dashboard
