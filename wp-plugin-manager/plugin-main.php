@@ -3,7 +3,7 @@
 * Plugin Name: WP Plugin Manager
 * Plugin URI: https://hasthemes.com/plugins/
 * Description: WP Plugin Manager is a WordPress plugin that allows you to disable plugins for certain pages, posts or URI conditions.
-* Version: 1.4.17
+* Version: 1.5.0
 * Author: HasThemes
 * Author URI: https://hasthemes.com/
 * Text Domain: wp-plugin-manager
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) or die();
 /**
  * Define path
  */
-define( 'HTPM_PLUGIN_VERSION', '1.4.17' );
+define( 'HTPM_PLUGIN_VERSION', '1.5.0' );
 define( 'HTPM_ROOT_PL', __FILE__ );
 define( 'HTPM_ROOT_URL', plugins_url('', HTPM_ROOT_PL) );
 define( 'HTPM_ROOT_DIR', dirname( HTPM_ROOT_PL ) );
@@ -199,6 +199,7 @@ class HTPM_Main {
         include_once( HTPM_ROOT_DIR . '/includes/api/changelog-api.php');
         include_once( HTPM_ROOT_DIR . '/includes/api/recommended-plugins-api.php');
         include_once( HTPM_ROOT_DIR . '/includes/api/admin-settings.php');
+        include_once( HTPM_ROOT_DIR . '/includes/api/groups-api.php');
 
         // Initialize REST API endpoints
         add_action('rest_api_init', function() {
@@ -266,6 +267,8 @@ class HTPM_Main {
                             'desc' => __( 'Our free version is great, but it doesn\'t have all our advanced features. The best way to unlock all of the features in our plugin is by purchasing the pro version.', 'wp-plugin-manager' )
                         ],
                     ],
+                    // Features that carry a "New" badge in the admin UI. Remove an entry to hide its badge.
+                    'newFeatures' => [ 'groups' ],
                     'existingData' => $htpm_current_options,
                     'helpSection' => [
                         'title' => esc_html__('Need Help with Plugin Manager?', 'wp-plugin-manager'),

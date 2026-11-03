@@ -4,7 +4,7 @@ Tags: plugin manager, disable plugins, disable plugins per page, conditional plu
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.17
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ WP Plugin Manager lets you disable plugins on specific pages and posts so they o
 
 **WP Plugin Manager** is a free WordPress plugin that lets you turn off any plugin on the pages, posts, or custom post types where you don't need it. A plugin that is turned off for a page does not load at all on that page, so its PHP code, database queries, and CSS/JS files are skipped for that request. Fewer plugins loading per page means less work for your server and usually faster pages.
 
-You choose a plugin, choose the pages or posts where it should not load, and save. Device-based rules (desktop, tablet, mobile) and admin-area rules are available in the Pro version.
+You choose a plugin, choose the pages or posts where it should not load, and save. To apply the same rules to several plugins at once, put them in a group. Device-based rules (desktop, tablet, mobile) and admin-area rules are available in the Pro version.
 
 [youtube https://youtu.be/vrWVOEQjQe8]
 
@@ -38,6 +38,7 @@ WP Plugin Manager solves this by letting you disable plugins on the specific pag
 * **Faster pages:** Plugins that don't load can't slow a page down. Results depend on your site and which plugins you disable.
 * **Less server work:** Skipped plugins mean fewer PHP calls and database queries per request.
 * **Simple control:** Turn plugins off per page or post from one dashboard, with no code.
+* **Plugin groups:** Set the rules once and apply them to many plugins at a time, instead of repeating the same setup for each one.
 * **Safe:** Plugin files are never changed or deleted. Re-enable a plugin at any time.
 * **Device-specific rules (Pro):** Different rules for desktop, tablet, and mobile.
 
@@ -65,10 +66,18 @@ Asset cleanup tools remove individual CSS and JavaScript files from a page. WP P
 * Bulk selection for multiple pages/posts
 * Support for custom post types
 
+**Plugin Groups**
+* Create a named group, set its frontend rules once, and apply them to many plugins at a time
+* Create multiple groups, each with its own rules and its own set of plugins
+* A plugin can be in several groups and keep its own rules too; it is disabled wherever any of them says so
+* Turn a group on or off with one click, without losing its settings
+* The free version includes up to 2 groups
+
 **Multisite Support**
 * Network Admin settings page for super admins
 * Configure plugin rules once and apply them across every site in your network
 * Override the network rules on individual sites when needed
+* Create plugin groups in Network Admin to apply them to every site; each site can switch a network group on or off for itself
 * Network-activated plugins show up correctly in the plugin list
 
 **User-Friendly Interface**
@@ -96,6 +105,7 @@ Asset cleanup tools remove individual CSS and JavaScript files from a page. WP P
 * Directory-based rules
 
 **Enhanced Features**
+* Unlimited plugin groups, with device targeting, enable-only rules, custom post types and custom URL conditions inside groups
 * Enable plugins on selected pages (inverse logic)
 * Extended post loading (manage 150+ posts)
 * Multiple conditional rules
@@ -203,6 +213,11 @@ The plugin is lightweight. Rules are checked once per page request, and plugins 
 It depends on your site and which plugins you disable. Disabling heavy plugins on pages that don't use them gives the biggest gain. Test your pages before and after with a speed tool such as PageSpeed Insights or GTmetrix.
 
 == Changelog ==
+= Version: 1.5.0 Date: 03 November 2026 =
+* Added: Plugin Groups — create a group, set its frontend rules once and apply them to many plugins at a time. A plugin can be in several groups and keep its own rules too; it is disabled wherever any of them says so.
+* Added: Plugin Groups on multisite — create groups in Network Admin to apply them to every site, and each site can switch a network group on or off for itself.
+* Tested: Compatibility with the latest version of WordPress.
+
 = Version: 1.4.17 Date: 06 October 2026 =
 * Fixed: Restricted the recommended plugins endpoints to users who can manage plugins.
 * Fixed: A few minor issues.

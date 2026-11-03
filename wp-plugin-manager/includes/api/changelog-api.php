@@ -182,6 +182,19 @@ class ChangeLog extends WP_REST_Controller {
     private function get_changelog_data() {
         return [
             [
+                'version' => '1.5.0',
+                'date' => '2026-11-03',
+                'changes' => [
+                    'Added' => [
+                        'Plugin Groups — create a group, set its frontend rules once and apply them to many plugins at a time. A plugin can be in several groups and keep its own rules too; it is disabled wherever any of them says so.',
+                        'Plugin Groups on multisite — create groups in Network Admin to apply them to every site, and each site can switch a network group on or off for itself.',
+                    ],
+                    'Tested' => [
+                        'Compatibility with the latest version of WordPress.',
+                    ],
+                ],
+            ],
+            [
                 'version' => '1.4.16',
                 'date'    => '2026-09-09',
                 'changes' => [
